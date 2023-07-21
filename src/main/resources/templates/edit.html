@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="https://images.pngnice.com/download/2114/Spring-Transparent-PNG.png"
+          type="image/png"/>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <title>Изменить</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/{id} (id=${user.getId()})}" th:object="${user}" th:method="PATCH">
+    <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+    <p>Никнейм: <input type="text" th:field="*{username}" th:value="*{username}" th:charset="utf-8"/></p>
+    <p>Пароль: <input type="text" th:field="*{password}" th:value="*{password}"/></p>
+    <p>Почта: <input type="text" th:field="*{email}" th:value="*{email}" th:charset="utf-8"/></p>
+    <p>Роль: <label>
+        <input type="checkbox" name="roles"
+               th:each="role : ${role}"
+               th:text="${role.getName()}"
+               th:value="${role.getId()}"
+               th:field="*{roleList}">
+    </label></p>
+    <p><input type="submit" value="Изменить"/></p>
+    <br/>
+    <form th:method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout!"/>
+    </form>
+</form>
+</body>
+</html>

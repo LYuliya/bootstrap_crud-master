@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<body>
+<div>
+  <br>
+  <style>
+    table {
+      border: 4px double #333;
+      border-collapse: separate;
+      width: 75%;
+      border-spacing: 7px 11px;
+    }
+    td {
+      padding: 5px;
+      border: 1px solid #a52a2a;
+    }
+  </style>
+  <table>
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>Никнейм</th>
+      <th>Пароль</th>
+      <th>Электронная почта</th>
+      <th>Фамилия</th>
+      <th>Роль</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+
+      <td th:text="${user.getId()}"></td>
+      <td th:text="${user.getUsername()}"></td>
+      <td th:text="${user.getPassword()}"></td>
+      <td th:text="${user.getlastName()}"></td>
+      <td th:text="${user.getEmail()}"></td>
+      <td th:text="${user.roleListToString()}"></td>
+      <td>
+        <form th:action="@{user/{id}(id=${user.id})}" th:method="GET">
+          <input type="submit" value="Данные пользователя"></form>
+        <br/>
+        <form th:action="@{{id}/edit(id=${user.id})}">
+          <input type="submit" value="Изменить пользователя">
+        </form>
+        <br/>
+        <form th:action="@{delete/{id}(id=${user.getId()})}" th:method="DELETE">
+          <input type="submit" value="Удалить пользователя">
+        </form>
+      </td>
+    </tr>
+
+    </tr>
+    </tbody>
+  </table>
+  <form action="/admin/add" target="_blank">
+    <button>Добавить пользователя</button>
+  </form>
+<br/>
+  <form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+  </form>
+
+</div>
+</body>
+</html>
